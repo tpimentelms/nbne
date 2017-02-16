@@ -79,7 +79,10 @@ celerybeat-schedule
 .env
 
 # virtualenv
+activate_venv.sh
+activate_venv_python3.sh
 venv/
+venv_python3/
 ENV/
 
 # Spyder project settings
@@ -87,3 +90,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+
+# Ignore temp files
+*.bk
