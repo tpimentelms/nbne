@@ -34,4 +34,4 @@ And the other:
     node_id embedding
 ```
 
-Where `embedding` is a space separated vector with dimension `d=embedding_size`.
+Where `embedding` is a space separated vector with dimension `d`, i.e. `d1 d2 d3 ... dn`.
