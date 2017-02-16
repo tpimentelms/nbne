@@ -1,0 +1,2 @@
+gensim==0.13.4.1
+networkx==1.11
