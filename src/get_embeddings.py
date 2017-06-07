@@ -1,7 +1,7 @@
 import argparse
 import networkx as nx
 
-from nbne import build_vocab, train_model, verbose_training
+from nbne import train_model, verbose_training
 
 
 def parse_args():
