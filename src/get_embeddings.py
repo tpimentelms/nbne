@@ -1,7 +1,7 @@
 import argparse
 import networkx as nx
 
-from nbne import train_model, verbose_training
+from nbne import build_vocab, train_model, verbose_training
 
 
 def parse_args():
@@ -47,7 +47,7 @@ def parse_args():
 
 # Load graph from edge_list
 def get_graph(input_file, directed):
-    graph = nx.read_edgelist(input_file, nodetype=int, create_using=nx.DiGraph())
+    graph = nx.read_edgelist(input_file, nodetype=int, delimiter=',', create_using=nx.DiGraph())
     if not directed:
         graph = graph.to_undirected()
 

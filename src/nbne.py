@@ -55,7 +55,7 @@ def train_model(graph, num_permutations, output_file, embedding_dimension=128, w
     model = gensim.models.Word2Vec(sentences, min_count=min_count * num_permutations, size=embedding_dimension, window=window_size, sg=1, workers=workers)
 
     if output_file is not None:
-        model.save_word2vec_format(output_file)
+        model.wv.save_word2vec_format(output_file)
     return model
 
 
