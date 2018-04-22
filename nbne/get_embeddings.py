@@ -1,7 +1,7 @@
 import argparse
 import networkx as nx
 
-from nbne import train_model, verbose_training
+from .nbne import train_model, verbose_training
 
 
 def parse_args():
@@ -31,6 +31,9 @@ def parse_args():
     parser.add_argument('--min-count', type=int, default=0,
                         help='Minimum number of appearances from node in training \'sentences\'. Default is 0.')
 
+    parser.add_argument('--delimiter', type=str, default=' ',
+                        help='Delimiter character in input graph file. Default is \',\'.')
+
     parser.add_argument('--workers', type=int, default=8,
                         help='Number of parallel workers. Default is 8.')
 
@@ -46,8 +49,8 @@ def parse_args():
 
 
 # Load graph from edge_list
-def get_graph(input_file, directed):
-    graph = nx.read_edgelist(input_file, nodetype=int, delimiter=',', create_using=nx.DiGraph())
+def get_graph(input_file, directed, delimiter=','):
+    graph = nx.read_edgelist(input_file, nodetype=int, delimiter=delimiter, create_using=nx.DiGraph())
     if not directed:
         graph = graph.to_undirected()
 
@@ -60,14 +63,14 @@ def run_model(graph, args):
                 min_degree=args.min_degree, workers=args.workers)
 
 
-def main(args):
+def main():
+    args = parse_args()
     if args.verbose:
         verbose_training()
 
-    graph = get_graph(args.input, args.directed)
+    graph = get_graph(args.input, args.directed, args.delimiter)
     run_model(graph, args)
 
 
 if __name__ == '__main__':
-    args = parse_args()
-    main(args)
+    main()

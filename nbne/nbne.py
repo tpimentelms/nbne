@@ -9,9 +9,9 @@ Call function with a networkx graph:
 
 
 For details read the paper:
-    Unsupervised and Efficient Neural Graph Model with Distributed Representations
+    Fast Node Embeddings: Learning Ego-Centric Representations
     Tiago Pimentel, Adriano Veloso and Nivio Ziviani
-    IJCAI, 2017
+    ICLR, 2018
 '''
 import random
 import logging
@@ -33,7 +33,7 @@ class MySentences(object):
 
     def get_nodes_senteces(self, src_id):
         src_node = str(src_id)
-        neighbors = self.graph.neighbors(src_id)
+        neighbors = list(self.graph.neighbors(src_id))
 
         if len(neighbors) < self.min_degree:
             return
@@ -50,7 +50,7 @@ class MySentences(object):
             yield nodes_sentence
 
 
-def train_model(graph, num_permutations, output_file, embedding_dimension=128, window_size=5, min_count=0, min_degree=0, workers=8):
+def train_model(graph, num_permutations, output_file=None, embedding_dimension=128, window_size=5, min_count=0, min_degree=0, workers=8):
     sentences = MySentences(graph, num_permutations, window_size, min_degree)
     model = gensim.models.Word2Vec(sentences, min_count=min_count * num_permutations, size=embedding_dimension, window=window_size, sg=1, workers=workers)
 
