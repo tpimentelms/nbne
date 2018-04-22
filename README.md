@@ -43,7 +43,6 @@ Import nbne module in your application and train model with:
 ```
 
 Where graph should be a networkx graph. To save the model in an output file:
-Import nbne module in your application and train model with:
 
 ```python
     from nbne import train_model
