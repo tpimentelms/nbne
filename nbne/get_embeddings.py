@@ -36,6 +36,9 @@ def parse_args():
 
     parser.add_argument('--workers', type=int, default=8,
                         help='Number of parallel workers. Default is 8.')
+    
+    parser.add_argument('--nodetype', type=str, default='int',
+                        help='Type of node ids. Use \'int\' for better performance. Default is \'int\'')
 
     parser.add_argument('--directed', dest='directed', action='store_true',
                         help='Graph is directed. Default is undirected.')
@@ -49,8 +52,9 @@ def parse_args():
 
 
 # Load graph from edge_list
-def get_graph(input_file, directed, delimiter=','):
-    graph = nx.read_edgelist(input_file, nodetype=int, delimiter=delimiter, create_using=nx.DiGraph())
+def get_graph(input_file, directed, delimiter=',', nodetype='int'):
+    types = {'int': int, 'str': str}
+    graph = nx.read_edgelist(input_file, nodetype=types[nodetype], delimiter=delimiter, create_using=nx.DiGraph())
     if not directed:
         graph = graph.to_undirected()
 
@@ -68,7 +72,7 @@ def main():
     if args.verbose:
         verbose_training()
 
-    graph = get_graph(args.input, args.directed, args.delimiter)
+    graph = get_graph(args.input, args.directed, args.delimiter, args.nodetype)
     run_model(graph, args)
 
 
