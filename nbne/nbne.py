@@ -52,7 +52,7 @@ class MySentences(object):
 
 def train_model(graph, num_permutations, output_file=None, embedding_dimension=128, window_size=5, min_count=0, min_degree=0, workers=8):
     sentences = MySentences(graph, num_permutations, window_size, min_degree)
-    model = gensim.models.Word2Vec(sentences, min_count=min_count * num_permutations, size=embedding_dimension, window=window_size, sg=1, workers=workers)
+    model = gensim.models.Word2Vec(sentences, min_count=min_count * num_permutations, vector_size=embedding_dimension, window=window_size, sg=1, workers=workers)
 
     if output_file is not None:
         model.wv.save_word2vec_format(output_file)
